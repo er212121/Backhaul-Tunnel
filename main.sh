@@ -158,6 +158,11 @@ bind_addr = "0.0.0.0:3080"
 transport = "${protocol}"
 token = "${token}"
 nodelay = ${nodelay}
+keepalive_period = 20
+channel_size = 2048
+connection_pool = 8
+mux_session = 1
+log_level = "info"
 ${ports}
 EOL
 
@@ -194,6 +199,10 @@ remote_addr = "0.0.0.0:3080"
 transport = "${protocol}"
 token = "${token}"
 nodelay = ${nodelay}
+keepalive_period = 20
+retry_interval = 1
+log_level = "info"
+mux_session = 1
 ${ports}
 EOL
 
