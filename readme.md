@@ -1,7 +1,5 @@
 <h1 align="center"/>⚡️ Welcome to Backhaul Tunnel ⚡️</h1>
 
-**WaterWall Tunnel • Built on Xray Core**
-
 > **Disclaimer:** his project provides a high-performance reverse tunneling solution optimized for handling massive concurrent connections through NAT and firewalls. This README will guide you through setting up and configuring both server and client components, including details on different transport protocols.
 
 **We don't need financial support, only Star (⭐) is enough, thank you.**
