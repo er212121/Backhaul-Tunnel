@@ -64,7 +64,7 @@ DVHOST_CLOUD_menu(){
 
 DVHOST_CLOUD_MAIN(){
     clear
-    DVHOST_CLOUD_menu "| 1  - Install Backhaul Core \n| 2  - Setup Tunnel \n| 3  - Status \n| 0  - Exit"
+    DVHOST_CLOUD_menu "| 1  - Install Backhaul Core \n| 2  - Setup Tunnel \n| 3  - Unistall \n| 0  - Exit"
     read -p "Enter your choice: " choice
     
     case $choice in
@@ -75,7 +75,8 @@ DVHOST_CLOUD_MAIN(){
             DVHOST_CLOUD_TUNNEL
         ;;
         3)
-            DVHOST_CLOUD_check_status
+            rm -rf /usr/bin/backhaul
+            rm config.toml
         ;;
         0)
             echo -e "${GREEN}Exiting program...${NC}"
