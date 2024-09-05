@@ -177,15 +177,15 @@ EOL
 
             read -p "Enter Token : " token
             read -p "Do you want nodelay (true/false)?" nodelay
-
+ports=$(save_forwarder_to_file)
 
 cat <<EOL > config.toml
 [client]
-remote_addr = "0.0.0.0:3080" # Server address and port (mandatory).
-transport = "${protocol}"            # Protocol ("tcp", "tcpmux", or "ws", optional, default: "tcp").
-token = "${token}"         # Authentication token (optional).
-nodelay = ${nodelay}              # Use TCP_NODELAY (optional, default: false).
-$(save_forwarder_to_file)
+remote_addr = "0.0.0.0:3080"
+transport = "${protocol}"
+token = "${token}"
+nodelay = ${nodelay}
+${ports}
 EOL
 
         backhaul -c config.toml
