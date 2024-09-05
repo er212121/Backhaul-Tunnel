@@ -46,7 +46,7 @@ DVHOST_CLOUD_menu(){
     echo "|  #####   ##   ##  ##        ###      ######  ##   ##  ##   ##   ##         ##    ##   ##  #######  #######   ####     ##             |"
     echo "|  ##  ##  #######  ##        ####     ##  ##  #######  ##   ##   ##         ##    ##   ##  ## ####  ## ####   ##       ##             |"
     echo "|  ##  ##  ##   ##   ##  ##   ## ##    ##  ##  ##   ##  ##   ##   ##  ##     ##    ##   ##  ##  ###  ##  ###   ##   #   ##  ##         |"
-    echo "| ######   ##   ##    ####   ### ###   ##  ##  ##   ##   #####   #######    ####    #####   ##   ##  ##   ##  #######  ####### ( 0.1 ) |"
+    echo "| ######   ##   ##    ####   ### ###   ##  ##  ##   ##   #####   #######    ####    #####   ##   ##  ##   ##  #######  ####### ( 0.2 ) |"
     echo "+--------------------------------------------------------------------------------------------------------------------------------------+"                                                                                                
     echo -e "|  Telegram Channel : ${GREEN}@DVHOST_CLOUD ${NC}                              |   YouTube : ${RED}youtube.com/@dvhost_cloud${NC}"
     echo "+--------------------------------------------------------------------------------------------------------------------------------------+"                                                                                                
@@ -219,20 +219,15 @@ EOL
 IRAN_PORTS() {
     ports=()
 
-    # استفاده از تعداد پورت‌ها که به عنوان پارامتر اول به تابع داده می‌شود
     for ((i=1; i<=$1; i++))
     do
-        # گرفتن ورودی LocalPort از کاربر
         read -p "Enter LocalPort for mapping $i: " local_port
 
-        # گرفتن ورودی RemotePort از کاربر
         read -p "Enter RemotePort for mapping $i: " remote_port
 
-        # ساختن mapping به صورت LocalPort=IP:RemotePort
         ports+=("$local_port=$remote_port")
     done
 
-    # خروجی دادن ports به صورت رشته و بدون چاپ در ترمینال
     echo "ports = ["
     for port in "${ports[@]}"
     do
@@ -245,23 +240,17 @@ IRAN_PORTS() {
 KHAREJ_PORT() {
     ports=()
 
-    # استفاده از تعداد پورت‌ها که به عنوان پارامتر اول به تابع داده می‌شود
     for ((i=1; i<=$1; i++))
     do
-        # گرفتن ورودی IP از کاربر
         read -p "Enter IP for mapping $i: " ip
 
-        # گرفتن ورودی LocalPort از کاربر
         read -p "Enter LocalPort for mapping $i: " local_port
 
-        # گرفتن ورودی RemotePort از کاربر
         read -p "Enter RemotePort for mapping $i: " remote_port
 
-        # ساختن mapping به صورت LocalPort=IP:RemotePort
         ports+=("$local_port=$ip:$remote_port")
     done
 
-    # خروجی دادن ports به صورت رشته و بدون چاپ در ترمینال
     echo "forwarder = ["
     for port in "${ports[@]}"
     do
