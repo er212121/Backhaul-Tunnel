@@ -186,16 +186,15 @@ EOL
 
             read -p "Enter Token : " token
             read -p "Do you want nodelay (true/false) ? " nodelay
-			read -p "How many port mappings do you want to add?" port_count
+			read -p "Remote IP" remote_ip
 
 
 
-ports=$(KHAREJ_PORT "$port_count")
 
 
 cat <<EOL > config.toml
 [client]
-remote_addr = "0.0.0.0:3080"
+remote_addr = "${remote_ip}:3080"
 transport = "${protocol}"
 token = "${token}"
 nodelay = ${nodelay}
@@ -203,7 +202,6 @@ keepalive_period = 20
 retry_interval = 1
 log_level = "info"
 mux_session = 1
-${ports}
 EOL
 
         backhaul -c config.toml
