@@ -160,7 +160,7 @@ token = "${token}"
 nodelay = ${nodelay}
 keepalive_period = 20
 channel_size = 2048
-connection_pool = 8
+connection_pool = 16
 mux_session = 1
 log_level = "info"
 ${ports}
