@@ -186,7 +186,7 @@ EOL
 
             read -p "Enter Token : " token
             read -p "Do you want nodelay (true/false) ? " nodelay
-			read -p "Remote IP" remote_ip
+			read -p "Please enter Remote IP : " remote_ip
 
 
 
