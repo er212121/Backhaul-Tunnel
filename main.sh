@@ -25,7 +25,6 @@ DVHOST_CLOUD_install_jq() {
 }
 
 DVHOST_CLOUD_require_command(){
-    apt install python3-pip -y
     DVHOST_CLOUD_install_jq
     if ! command -v pv &> /dev/null; then
         echo "pv could not be found, installing it..."
