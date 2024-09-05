@@ -143,9 +143,13 @@ DVHOST_CLOUD_TUNNEL(){
             fi
 
             read -p "Enter Token : " token
-            read -p "Do you want nodelay (true/false)?" nodelay
+            read -p "Do you want nodelay (true/false)? " nodelay
+
+			read -p "How many port mappings do you want to add?" port_count
 
 
+
+ports=$(IRAN_PORTS "$port_count")
 
 cat <<EOL > config.toml
 [server]# Local, IRAN
@@ -153,8 +157,7 @@ bind_addr = "0.0.0.0:3080"
 transport = "${protocol}"
 token = "${token}"
 nodelay = ${nodelay}
-
-$(save_ports_to_file)
+${ports}
 EOL
 
         backhaul -c config.toml
@@ -176,8 +179,13 @@ EOL
             fi
 
             read -p "Enter Token : " token
-            read -p "Do you want nodelay (true/false)?" nodelay
-ports=$(save_forwarder_to_file)
+            read -p "Do you want nodelay (true/false) ? " nodelay
+			read -p "How many port mappings do you want to add?" port_count
+
+
+
+ports=$(KHAREJ_PORT "$port_count")
+
 
 cat <<EOL > config.toml
 [client]
@@ -207,61 +215,59 @@ EOL
     esac
 }
 
-save_forwarder_to_file() {
-    forwarder=()
-    echo "How many forwarder mappings do you want to add?"
-    read forwarder_count
 
-    for ((i=1; i<=forwarder_count; i++))
-    do
-        echo "Enter LocalPort for forwarder mapping $i:"
-        read local_port
-
-        echo "Enter IP for forwarder mapping $i:"
-        read remote_ip
-
-        echo "Enter RemotePort for forwarder mapping $i:"
-        read remote_port
-
-        forwarder+=("$local_port=$remote_ip:$remote_port")
-    done
-
-    output_file="forwarder_config.txt"
-    echo "forwarder = [" > "$output_file"
-
-    for fwd in "${forwarder[@]}"
-    do
-        echo "   \"$fwd\"," >> "$output_file"
-    done
-
-    echo "]" >> "$output_file"
-}
-
-save_ports_to_file() {
+IRAN_PORTS() {
     ports=()
-    echo "How many port mappings do you want to add?"
-    read port_count
 
-    for ((i=1; i<=port_count; i++))
+    # استفاده از تعداد پورت‌ها که به عنوان پارامتر اول به تابع داده می‌شود
+    for ((i=1; i<=$1; i++))
     do
-        echo "Enter LocalPort for mapping $i:"
-        read local_port
+        # گرفتن ورودی LocalPort از کاربر
+        read -p "Enter LocalPort for mapping $i: " local_port
 
-        echo "Enter RemotePort for mapping $i:"
-        read remote_port
+        # گرفتن ورودی RemotePort از کاربر
+        read -p "Enter RemotePort for mapping $i: " remote_port
 
+        # ساختن mapping به صورت LocalPort=IP:RemotePort
         ports+=("$local_port=$remote_port")
     done
 
-    output_file="ports_config.txt"
-    echo "ports = [" > "$output_file"
-
+    # خروجی دادن ports به صورت رشته و بدون چاپ در ترمینال
+    echo "ports = ["
     for port in "${ports[@]}"
     do
-        echo "   \"$port\"," >> "$output_file"
+        echo "   \"$port\","
+    done
+    echo "]"
+}
+
+
+KHAREJ_PORT() {
+    ports=()
+
+    # استفاده از تعداد پورت‌ها که به عنوان پارامتر اول به تابع داده می‌شود
+    for ((i=1; i<=$1; i++))
+    do
+        # گرفتن ورودی IP از کاربر
+        read -p "Enter IP for mapping $i: " ip
+
+        # گرفتن ورودی LocalPort از کاربر
+        read -p "Enter LocalPort for mapping $i: " local_port
+
+        # گرفتن ورودی RemotePort از کاربر
+        read -p "Enter RemotePort for mapping $i: " remote_port
+
+        # ساختن mapping به صورت LocalPort=IP:RemotePort
+        ports+=("$local_port=$ip:$remote_port")
     done
 
-    echo "]" >> "$output_file"
+    # خروجی دادن ports به صورت رشته و بدون چاپ در ترمینال
+    echo "forwarder = ["
+    for port in "${ports[@]}"
+    do
+        echo "   \"$port\","
+    done
+    echo "]"
 }
 
 create_backhaul_service() {
