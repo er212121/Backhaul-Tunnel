@@ -93,7 +93,7 @@ DVHOST_CLOUD_MAIN(){
 DVHOST_CLOUD_BACKCORE(){
 
     ## Download from github
-    wget https://github.com/Musixal/Backhaul/releases/download/v0.1.1/backhaul_linux_amd64.tar.gz
+    wget https://github.com/Musixal/Backhaul/releases/download/v0.3.3/backhaul_linux_amd64.tar.gz
 
     # Permission File 
     chmod +x backhaul
